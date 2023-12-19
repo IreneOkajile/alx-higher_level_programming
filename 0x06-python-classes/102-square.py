@@ -1,79 +1,59 @@
 #!/usr/bin/python3
+""" class Square that defines a square"""
 
-"""A module that has a class with a private attribute"""
 
-
-class Square():
-    """A square class with a private attribute"""
+class Square:
+    """ class Square that defines a square"""
     def __init__(self, size=0):
-        """A method with a private attribute"""
-        if type(size) != int:
-            raise TypeError("size must be an integer")
-        if size < 0:
-            raise ValueError("size must be >= 0")
-        self.__size = size
+        """ init square
 
-    def area(self):
-        """A method that returns the area"""
-        return int((self.__size) * (self.__size))
+        Args:
+            value (int): size of the square.
+        """
+        self.size = size
 
     @property
     def size(self):
+        """int: private size.
+
+        Returns:
+            Private size.
+        """
         return self.__size
 
     @size.setter
     def size(self, value):
-        if type(value) != int:
-            raise TypeError("size must be an integer")
-        if value < 0:
-            raise ValueError("size must be >= 0")
-        self.__size = value
+        """Sets value into size, must be int.
 
-    def __lt__(self, right):
-        """A function implementing < of a square"""
-        if isinstance(right, Square):
-            if (self.__size) * (self.__size) \
-                    < (right.__size) * (right.__size):
-                return True
-            else:
-                return False
+        Args:
+            value (int): size of the square.
+        """
+        if type(value) is not int and type(value) is not float:
+            raise TypeError('size must be a number')
+        elif value < 0:
+            raise ValueError('size must be >= 0')
+        else:
+            self.__size = value  #: size of the square
 
-    def __gt__(self, right):
-        """A function implementing > of a square"""
-        if isinstance(right, Square):
-            if (self.__size) * (self.__size) \
-                    > (right.__size) * (right.__size):
-                return True
-            else:
-                return False
+    def area(self):
+        """returns the area
 
-    def __ne__(self, right):
-        """A function implementing != of a square"""
-        if isinstance(right, Square):
-            if (self.__size) * (self.__size) \
-                    != (right.__size) * (right.__size):
-                return True
-            else:
-                return False
+        Returns:
+            area.
+        """
+        return self.__size**2
 
-    def __eq__(self, right):
-        """A function implementing == of a square"""
-        if isinstance(right, Square):
-            if (self.__size) * (self.__size) \
-                    == (right.__size) * (right.__size):
-                return True
-            else:
-                return False
+    def __lt__(self, other):
+        return self.size < other.size
 
-    def __ge__(self, right):
-        """A function implementing >= of a square """
-        if isinstance(right, Square):
-            if (self.__size) * (self.__size) \
-                    >= (right.__size) * (right.__size):
-                return True
-            else:
-                return False
+    def __le__(self, other):
+        return self.size <= other.size
 
-    def __le__(self, right):
-        """A function implementing <= of a square"""
-        return self.area() <= right.area()
+    def __eq__(self, other):
+        return self.size == other.size
+
+    def __ne__(self, other):
+        return self.size != other.size
+
+    def __ge__(self, other):
+        return self.size >= other.size
